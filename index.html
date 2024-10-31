@@ -1,12 +1,34 @@
-<html>
-    <head>
-        <title>dupa</title>
-    </head>
-    <body>
-        <div>
-            <p>
-                siema
-            </p>
-        </div>
-    </body>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Weryfikacja hasła</title>
+</head>
+<body>
+    <h2>Wprowadź hasło</h2>
+    <input type="password" id="passwordInput" placeholder="Wpisz hasło">
+    <button onclick="verifyPassword()">Sprawdź</button>
+
+    <script>
+        async function verifyPassword() {
+            const userPassword = document.getElementById("passwordInput").value;
+
+            try {
+                // Pobieramy zaszyfrowane hasło (zakładamy na razie brak szyfrowania)
+                const response = await fetch("pass.json");
+                const data = await response.json();
+
+                // Weryfikujemy hasło
+                if (userPassword === data.password) {
+                    alert("Gratulacje, hasło poprawne!");
+                } else {
+                    alert("Niepoprawne hasło, spróbuj ponownie.");
+                }
+            } catch (error) {
+                console.error("Błąd podczas pobierania pliku pass.json:", error);
+                alert("Wystąpił błąd. Spróbuj ponownie później.");
+            }
+        }
+    </script>
+</body>
 </html>
