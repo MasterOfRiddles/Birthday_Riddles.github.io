@@ -3,24 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Weryfikacja hasła</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <style>
+        /* Ukrywamy elementy, gdy nie są potrzebne */
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h2>Wprowadź hasło</h2>
+    <h2 id="message">Wprowadź hasło</h2>
     <input type="password" id="passwordInput" placeholder="Wpisz hasło">
-    <button onclick="verifyPassword()">Sprawdź</button>
+    <button id="checkButton" onclick="verifyPassword()">Sprawdź</button>
 
     <script>
+        let step = 1; // Zmienna do śledzenia aktualnego kroku
+
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
 
+            // Zaszyfruj hasło MD5
+            const hashedPassword = CryptoJS.MD5(userPassword).toString();
+
             try {
-                // Pobieramy zaszyfrowane hasło (zakładamy na razie brak szyfrowania)
+                // Pobieramy zaszyfrowane hasła
                 const response = await fetch("pass.json");
                 const data = await response.json();
 
-                // Weryfikujemy hasło
-                if (userPassword === data.password) {
-                    alert("Gratulacje, hasło poprawne!");
+                // Weryfikujemy hasło w zależności od kroku
+                if (step === 1 && hashedPassword === data.password1) {
+                    document.getElementById("message").innerText = "Jaki dziś mamy dzień?";
+                    document.getElementById("passwordInput").value = ''; // Czyścimy pole
+                    step = 2; // Przechodzimy do kolejnego kroku
+                } else if (step === 2 && hashedPassword === data.password2) {
+                    // Ukrywamy elementy po poprawnej weryfikacji drugiego hasła
+                    document.getElementById("message").innerText = "Gratulacje!";
+                    document.getElementById("passwordInput").classList.add('hidden');
+                    document.getElementById("checkButton").classList.add('hidden');
                 } else {
                     alert("Niepoprawne hasło, spróbuj ponownie.");
                 }
@@ -32,3 +51,4 @@
     </script>
 </body>
 </html>
+
