@@ -10,7 +10,7 @@ body {
     justify-content: center;
     background: linear-gradient(to bottom right, #fbc2eb, #a18cd1);
     height: 100vh;
-    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -22,66 +22,40 @@ body {
 }
 
 .magic-frame {
-    width: 100%; /* Pełna szerokość formularza */
-    max-width: 600px; /* Ustalona maksymalna szerokość dla większych ekranów */
+    width: 100%;
+    max-width: 600px;
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
     text-align: center;
     position: relative;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
     animation: fadeIn 1s ease-in;
+    border-radius: 0 50px 0 50px; /* Tylko po przekątnej */
+    transform: scale(1.5);
 }
 
 .unicorn {
-    width: 150px; /* Większy rozmiar jednorożca */
+    width: 220px;
     position: absolute;
-    top: -80px; /* Zmiana pozycji dla lepszej widoczności */
+    top: -200px; /* Ustawione wyżej dla odstępu */
     left: 50%;
     transform: translateX(-50%);
-    transition: 0.5s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -10px); }
 }
 
 h2 {
     color: #6a097d;
-    font-size: 2.5em; /* Zwiększenie rozmiaru nagłówka */
+    font-size: 2.5em;
     margin-bottom: 15px;
-    animation: pulse 1.5s infinite;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 20px; /* Większy padding */
-    margin-top: 15px;
-    font-size: 1.5em; /* Zwiększenie rozmiaru czcionki */
-    border: 2px solid #fcbf49;
-    border-radius: 10px;
-    outline: none;
-}
-
-button {
-    margin-top: 20px;
-    padding: 15px 30px; /* Większy padding */
-    font-size: 1.5em; /* Zwiększenie rozmiaru czcionki */
-    color: white;
-    background-color: #ff6b6b;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #ff4757;
-}
-
-.hidden {
-    display: none;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.pulse {
+    animation: pulse 4s infinite;
 }
 
 @keyframes pulse {
@@ -89,23 +63,61 @@ button:hover {
     50% { transform: scale(1.05); }
 }
 
-.bounce {
-    animation: bounce 0.8s ease;
+input[type="text"] {
+    width: 100%;
+    padding: 20px;
+    margin-top: 15px;
+    font-size: 1.2em;
+    border: 2px solid #fcbf49;
+    border-radius: 10px;
+    outline: none;
+    transition: border-color 0.3s ease; /* Dodaje płynne przejście */
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+input[type="text"]:focus {
+    border-color: #6a097d; /* Zmiana koloru ramki przy fokuse */
 }
 
-/* Dodatkowe style dla responsywności */
+button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Dodaje płynne przejście dla cienia */
+}
+
+button:hover {
+    background-color: #ff4757;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Dodaje cień podczas hover */
+}
+
+.hidden {
+    display: none;
+}
+
 @media (max-width: 600px) {
-    h2 {
-        font-size: 2em; /* Zmniejszenie nagłówka na mniejszych ekranach */
+    .magic-frame {
+        width: 100%; /* Pełna szerokość na małych ekranach */
+        padding: 20px; /* Zmniejszenie paddingu, jeśli potrzebne */
     }
 
-    input[type="text"],
+    .container {
+        width: 100%; /* Pełna szerokość kontenera na małych ekranach */
+    }
+
+    h2 {
+        font-size: 2em; /* Zmniejsza rozmiar czcionki dla mniejszych ekranów */
+    }
+
     button {
-        font-size: 1.2em; /* Zmniejszenie rozmiaru czcionki dla elementów formularza */
+        padding: 12px 24px; /* Dostosowuje padding przycisku */
+    }
+
+    input[type="text"] {
+        font-size: 1em; /* Zmniejsza czcionkę w polu tekstowym */
     }
 }
