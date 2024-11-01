@@ -2,42 +2,75 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Weryfikacja hasła</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
-    <style>
-        /* Ukrywamy elementy, gdy nie są potrzebne */
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Magiczna Weryfikacja Hasła</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2 id="message">Wprowadź hasło</h2>
-    <input type="password" id="passwordInput" placeholder="Wpisz hasło">
-    <button id="checkButton" onclick="verifyPassword()">Sprawdź</button>
-
+    <div class="container">
+        <div class="magic-frame">
+            <img id="unicornImage" src="unicorn1.png" alt="Jednorożec" class="unicorn">
+            <h2 id="message">332211</h2>
+            <input type="text" id="passwordInput" placeholder="Wpisz hasło">
+            <button id="checkButton" onclick="verifyPassword()">Kontynuuj</button>
+        </div>
+    </div>
     <script>
         let step = 1; // Zmienna do śledzenia aktualnego kroku
+        const decryptionKey = "tajnehaslo"; // Klucz AES do odszyfrowania finalmessage
 
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
-
-            // Zaszyfruj hasło MD5
             const hashedPassword = CryptoJS.MD5(userPassword).toString();
 
             try {
-                // Pobieramy zaszyfrowane hasła
+                // Pobieramy dane z pass.json
                 const response = await fetch("pass.json");
                 const data = await response.json();
 
-                // Weryfikujemy hasło w zależności od kroku
+                // Weryfikujemy hasła w zależności od aktualnego kroku
                 if (step === 1 && hashedPassword === data.password1) {
-                    document.getElementById("message").innerText = "Jaki dziś mamy dzień?";
-                    document.getElementById("passwordInput").value = ''; // Czyścimy pole
-                    step = 2; // Przechodzimy do kolejnego kroku
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Cezar krzyknął: BYVKGPUF\n Odszyfruj jego wiadomość!";
+                    document.getElementById("passwordInput").value = '';
+                    step = 2;
                 } else if (step === 2 && hashedPassword === data.password2) {
-                    // Ukrywamy elementy po poprawnej weryfikacji drugiego hasła
-                    document.getElementById("message").innerText = "Gratulacje!";
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Zagadka nr 3";
+                    document.getElementById("passwordInput").value = '';
+                    step = 3;
+                } else if (step === 3 && hashedPassword === data.password3) {
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Zagadka nr 4";
+                    document.getElementById("passwordInput").value = '';
+                    step = 4;
+                } else if (step === 4 && hashedPassword === data.password4) {
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Zagadka nr 5";
+                    document.getElementById("passwordInput").value = '';
+                    step = 5;
+                } else if (step === 5 && hashedPassword === data.password5) {
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Zagadka nr 6";
+                    document.getElementById("passwordInput").value = '';
+                    step = 6;
+                } else if (step === 6 && hashedPassword === data.password6) {
+                    alert("Gratulacje! Przechodzisz do następnej zagadki.");
+                    document.getElementById("message").innerText = "Zagadka nr 7";
+                    document.getElementById("passwordInput").value = '';
+                    step = 7;
+                } else if (step === 7 && hashedPassword === data.password7) {
+                    alert("Gratulacje! Przechodzisz do finalnej wiadomości.");
+
+                    // Odszyfruj finalmessage i wyświetl jako końcowy komunikat
+                    const decryptedMessage = CryptoJS.AES.decrypt(data.finalmessage, decryptionKey).toString(CryptoJS.enc.Utf8);
+                    if (decryptedMessage) {
+                        document.getElementById("message").innerText = decryptedMessage;
+                    } else {
+                        document.getElementById("message").innerText = "Błąd odszyfrowania wiadomości.";
+                    }
+
+                    // Ukrywamy pola
                     document.getElementById("passwordInput").classList.add('hidden');
                     document.getElementById("checkButton").classList.add('hidden');
                 } else {
@@ -51,4 +84,3 @@
     </script>
 </body>
 </html>
-
