@@ -4,20 +4,23 @@
     <meta charset="UTF-8">
     <title>Magiczna Weryfikacja Hasła</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="magic-frame">
-            <img id="unicornImage" src="unicorn1.png" alt="Jednorożec" class="unicorn">
-            <h2 id="message">332211</h2>
+            <img id="unicornImage" src="unicorn.png" alt="Jednorożec" class="unicorn">
+            <h2 id="message" class="pulse">332211</h2>
             <input type="text" id="passwordInput" placeholder="Wpisz hasło">
             <button id="checkButton" onclick="verifyPassword()">Kontynuuj</button>
         </div>
     </div>
+
     <script>
-        let step = 1; // Zmienna do śledzenia aktualnego kroku
-        const decryptionKey = "tajnehaslo"; // Klucz AES do odszyfrowania finalmessage
+        let step = 1; 
+        const decryptionKey = "tajnehaslo"; 
 
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
@@ -80,6 +83,17 @@
                 console.error("Błąd podczas pobierania pliku pass.json:", error);
                 alert("Wystąpił błąd. Spróbuj ponownie później.");
             }
+        }
+
+        function advanceStep(newMessage) {
+            document.getElementById("message").innerText = newMessage;
+            document.getElementById("passwordInput").value = '';
+            step++;
+        }
+
+        function hideForm() {
+            document.getElementById("passwordInput").classList.add('hidden');
+            document.getElementById("checkButton").classList.add('hidden');
         }
     </script>
 </body>
