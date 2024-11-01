@@ -99,6 +99,23 @@ button:hover {
     display: none;
 }
 
+#message a {
+    color: #6a097d; /* Kolor tekstu linku */
+    text-decoration: none; /* Usunięcie podkreślenia */
+    font-size: 1.5em; /* Rozmiar czcionki */
+    transition: color 0.3s ease; /* Płynne przejście koloru */
+}
+
+/* Styl po najechaniu kursorem */
+#message a:hover {
+    color: #ff4757; /* Kolor po najechaniu */
+}
+
+/* Styl po kliknięciu */
+#message a:active {
+    color: #a18cd1; /* Kolor podczas kliknięcia */
+}
+
 @media (max-width: 600px) {
     .magic-frame {
         width: 100%; /* Pełna szerokość na małych ekranach */

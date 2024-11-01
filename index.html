@@ -19,8 +19,9 @@
     </div>
 
     <script>
-        let step = 1; 
-        const decryptionKey = "tajnehaslo"; 
+        let step = 1;
+        const secretKey = "TwojSekretnyKlucz";
+
 
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
@@ -39,7 +40,7 @@
                     step = 2;
                 } else if (step === 2 && hashedPassword === data.password2) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Zagadka nr 3";
+                    document.getElementById("message").innerText = "5806 + 7999 = 7\n10038 - 528 = 2\n7351 + 2317 = 0\n81986 * 40698 + 108 = ?";
                     document.getElementById("passwordInput").value = '';
                     step = 3;
                 } else if (step === 3 && hashedPassword === data.password3) {
@@ -64,14 +65,9 @@
                     step = 7;
                 } else if (step === 7 && hashedPassword === data.password7) {
                     alert("Gratulacje! Przechodzisz do finalnej wiadomości.");
-
-                    // Odszyfruj finalmessage i wyświetl jako końcowy komunikat
-                    const decryptedMessage = CryptoJS.AES.decrypt(data.finalmessage, decryptionKey).toString(CryptoJS.enc.Utf8);
-                    if (decryptedMessage) {
-                        document.getElementById("message").innerText = decryptedMessage;
-                    } else {
-                        document.getElementById("message").innerText = "Błąd odszyfrowania wiadomości.";
-                    }
+                    const bytes = CryptoJS.AES.decrypt(data.finalmessage, secretKey);
+                    const decryptedMessage = bytes.toString(CryptoJS.enc.Utf8);
+                    document.getElementById("message").innerHTML = `<a href="${decryptedMessage}" target="_blank">ODBIERZ PREZENT!</a>`;
 
                     // Ukrywamy pola
                     document.getElementById("passwordInput").classList.add('hidden');
