@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Magiczna Weryfikacja Hasła</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,17 +25,12 @@
             <button id="checkButton" onclick="verifyPassword()">Kontynuuj</button>
         </div>
     </div>
-
     <script>
         let step = 1;
         const secretKey = "TwojSekretnyKlucz";
-
-
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
             const hashedPassword = CryptoJS.MD5(userPassword).toString();
-            console.log(CryptoJS.MD5("prezent").toString())
-
             try {
                 // Pobieramy dane z pass.json
                 const response = await fetch("pass.json");
@@ -72,7 +68,7 @@
                     step = 5;
                 } else if (step === 5 && hashedPassword === data.password5) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Gdy okno otworzysz w domu wymarzonym\nStopę na ciepłym postawisz balkonie\nPierś napełnisz marzniem spełnionym\nŁza w oku Twoim z rzadka zapłonie";
+                    document.getElementById("message").innerText = "Gdy okno otworzysz w domu wymarzonym\nStopę na ciepłym postawisz balkonie\nPierś napełnisz marzeniem spełnionym\nŁza w oku Twoim z rzadka zapłonie";
                     document.getElementById("message").classList.add('smaller');
                     document.getElementById("passwordInput").value = '';
                     document.getElementById("unicornImage").src = "unicorn.png";
@@ -92,6 +88,9 @@
                     // Ukrywamy pola
                     document.getElementById("passwordInput").classList.add('hidden');
                     document.getElementById("checkButton").classList.add('hidden');
+                    // Dodajemy dźwięk oklasków
+                    const cheeringSound = new Audio("https://www.soundjay.com/human/applause-8.mp3");
+                    cheeringSound.play();
                 } else {
                     alert("Niepoprawne hasło, spróbuj ponownie.");
                 }

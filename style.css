@@ -34,6 +34,7 @@ body {
     transform: scale(1.5);
 }
 
+
 .unicorn {
     width: 220px;
     position: absolute;
@@ -127,6 +128,15 @@ button:hover {
 .audio-controls button:focus {
     outline: none; /* Usunięcie konturu */
 }
+
+#fireworksCanvas {
+    position: fixed;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+
+}
+
 
 #message a {
     color: #a7024f; /* Kolor tekstu linku */
