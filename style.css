@@ -54,6 +54,11 @@ h2 {
     margin-bottom: 15px;
 }
 
+.smaller {
+    font-size: 1.4em;
+    font-style: italic;    /* Ustawia czcionkę kursywą */
+}
+
 .pulse {
     animation: pulse 4s infinite;
 }
@@ -99,22 +104,31 @@ button:hover {
     display: none;
 }
 
-#message a {
-    color: #6a097d; /* Kolor tekstu linku */
-    text-decoration: none; /* Usunięcie podkreślenia */
-    font-size: 1.5em; /* Rozmiar czcionki */
-    transition: color 0.3s ease; /* Płynne przejście koloru */
+
+.audio-controls button {
+    margin: 0 10px;
+    padding: 15px; /* Większe padding dla lepszego kliknięcia */
+    font-size: 1.5em;
+    color: white;
+    background-color: #6a097d; /* Fioletowy kolor przycisku */
+    border: none;
+    border-radius: 5px; /* Kwadratowe przyciski z zaokrąglonymi rogami */
+    width: 60px; /* Szerokość */
+    height: 60px; /* Wysokość */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Styl po najechaniu kursorem */
-#message a:hover {
-    color: #ff4757; /* Kolor po najechaniu */
+.audio-controls button:hover {
+    background-color: #a18cd1; /* Jaśniejszy fiolet po najechaniu */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Styl po kliknięciu */
-#message a:active {
-    color: #a18cd1; /* Kolor podczas kliknięcia */
+.audio-controls button:focus {
+    outline: none; /* Usunięcie konturu */
 }
+
+
 
 @media (max-width: 600px) {
     .magic-frame {

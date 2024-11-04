@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -13,6 +14,12 @@
         <div class="magic-frame">
             <img id="unicornImage" src="unicorn.png" alt="Jednorożec" class="unicorn">
             <h2 id="message" class="pulse">332211</h2>
+            <audio id="audioPlayer" src="heyboogie.mp3" preload="auto"></audio>
+            <div class="audio-controls">
+                <button id="playButton" onclick="playAudio()", class="hidden"><i class="fas fa-play"></i></button>
+                <button id="pauseButton" onclick="pauseAudio()", class="hidden"><i class="fas fa-pause"></i></button>
+                <button id="replayButton" onclick="replayAudio()", class="hidden"><i class="fas fa-redo"></i></button>
+            </div>
             <input type="text" id="passwordInput" placeholder="Wpisz hasło">
             <button id="checkButton" onclick="verifyPassword()">Kontynuuj</button>
         </div>
@@ -45,22 +52,33 @@
                     step = 3;
                 } else if (step === 3 && hashedPassword === data.password3) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Zagadka nr 4";
+                    //document.getElementById("message").innerText = "muzyczna - durres";
                     document.getElementById("passwordInput").value = '';
+                    document.getElementById("message").classList.add('hidden');
+                    document.getElementById("playButton").classList.remove('hidden');
+                    document.getElementById("pauseButton").classList.remove('hidden');
+                    document.getElementById("replayButton").classList.remove('hidden');
                     step = 4;
                 } else if (step === 4 && hashedPassword === data.password4) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Zagadka nr 5";
+                    document.getElementById("message").innerText = "To nie sierżant!\nTo zwykła naklejka!";
                     document.getElementById("passwordInput").value = '';
+                    document.getElementById("unicornImage").src = "unicorn1.png";
+                    document.getElementById("message").classList.remove('hidden');
+                    document.getElementById("playButton").classList.add('hidden');
+                    document.getElementById("pauseButton").classList.add('hidden');
+                    document.getElementById("replayButton").classList.add('hidden');
                     step = 5;
                 } else if (step === 5 && hashedPassword === data.password5) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Zagadka nr 6";
+                    document.getElementById("message").innerText = "Gdy okno otworzysz w domu wymarzonym\nStopę na ciepłym postawisz balkonie\nPierś napełnisz marzniem spełnionym\nŁza w oku Twoim z rzadka zapłonie";
+                    document.getElementById("message").classList.add('smaller');
                     document.getElementById("passwordInput").value = '';
+                    document.getElementById("unicornImage").src = "unicorn.png";
                     step = 6;
                 } else if (step === 6 && hashedPassword === data.password6) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "Zagadka nr 7";
+                    document.getElementById("message").innerText = "natalia ubre ciezkoe";
                     document.getElementById("passwordInput").value = '';
                     step = 7;
                 } else if (step === 7 && hashedPassword === data.password7) {
@@ -90,6 +108,21 @@
         function hideForm() {
             document.getElementById("passwordInput").classList.add('hidden');
             document.getElementById("checkButton").classList.add('hidden');
+        }
+        function playAudio() {
+            const audio = document.getElementById("audioPlayer");
+            audio.play();
+        }
+
+        function pauseAudio() {
+            const audio = document.getElementById("audioPlayer");
+            audio.pause();
+        }
+
+        function replayAudio() {
+            const audio = document.getElementById("audioPlayer");
+            audio.currentTime = 0; // Ustawia czas na początek
+            audio.play(); // Odtwarza od początku
         }
     </script>
 </body>
