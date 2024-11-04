@@ -33,6 +33,7 @@
         async function verifyPassword() {
             const userPassword = document.getElementById("passwordInput").value;
             const hashedPassword = CryptoJS.MD5(userPassword).toString();
+            console.log(CryptoJS.MD5("prezent").toString())
 
             try {
                 // Pobieramy dane z pass.json
@@ -78,7 +79,8 @@
                     step = 6;
                 } else if (step === 6 && hashedPassword === data.password6) {
                     alert("Gratulacje! Przechodzisz do następnej zagadki.");
-                    document.getElementById("message").innerText = "natalia ubre ciezkoe";
+                    document.getElementById("message").classList.remove('smaller');
+                    document.getElementById("message").innerText = "List jest kluczem...";
                     document.getElementById("passwordInput").value = '';
                     step = 7;
                 } else if (step === 7 && hashedPassword === data.password7) {
